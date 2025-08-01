@@ -1,69 +1,113 @@
-# React + TypeScript + Vite
+# Sistema de Gestión de Tareas
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este proyecto es una aplicación web fullstack para gestionar tareas, desarrollada con **FastAPI** en el backend y **React + TypeScript** en el frontend. Permite autenticación con JWT, creación y edición de tareas, asignación de prioridades y filtros avanzados. También cuenta con una vista tipo Kanban (en desarrollo).
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Tecnologías utilizadas
 
-## Expanding the ESLint configuration
+### Backend – FastAPI
+- Python 3.10+
+- FastAPI
+- SQLAlchemy
+- Pydantic v2
+- PostgreSQL
+- JWT (Authentication)
+- Alembic (Migraciones)
+- Uvicorn
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Frontend – React
+- React 18
+- TypeScript
+- Vite
+- Axios
+- CSS plano
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+## Estructura del proyecto
+gest_tareas/
+├── backend/
+│ ├── app/
+│ │ ├── main.py
+│ │ ├── models/
+│ │ ├── schemas/
+│ │ ├── routes/
+│ │ └── auth/
+│ ├── env/
+│ └── .env
+├── frontend/
+│ ├── src/
+│ │ ├── pages/
+│ │ └── components/
+│ └── vite.config.ts
+└── README.md
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## ⚙ Instalación
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Requisitos previos
+- Python 3.10+
+- Node.js y npm
+- PostgreSQL instalado y corriendo
+- Git
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---
+
+###  Backend (FastAPI)
+
+1. Entra al directorio del backend:
+   ```bash
+   cd backend
+
+Crea un entorno virtual:
+python -m venv env
+env\Scripts\activate      # En Windows
+# source env/bin/activate  # En Linux/Mac
+
+Instala dependencias:
+pip install -r requirements.txt
+
+Crear un archivo .env con la siguiente configuración cambiando datos:
+DATABASE_URL=postgresql://usuario:contraseña@localhost:5432/gest_tareas_db
+SECRET_KEY=una_clave_secreta
+ALGORITHM=HS256
+ACCESS_TOKEN_EXPIRE_MINUTES=30
+
+Ejecuta migraciones con Alembic (si están configuradas):
+alembic upgrade head
+
+Ejecuta el servidor:
+uvicorn app.main:app --reload
+
+Entra al directorio del frontend:
+cd frontend
+
+Instala las dependencias:
+npm install
+
+Levanta el frontend:
+npm run dev
+
+Accede a la app en:
+http://localhost:5173
+
+Funcionalidades principales: 
+- Autenticación de usuarios con JWT
+- Registro e inicio de sesión
+- CRUD completo de tareas
+- Asignación de prioridades y responsables
+- Filtros por estado, prioridad y usuario asignado
+- Estimación de fechas y porcentajes de avance
+- Modal reutilizable para crear/editar tareas
+- Vista Kanban (en desarrollo)
+
+Rutas útiles
+Backend (Swagger): http://localhost:8000/docs
+
+Frontend: http://localhost:5173
+
+Autor: 
+Elian Muriel
+Estudiante de Tecnología en Desarrollo de Software – Universidad UTE
