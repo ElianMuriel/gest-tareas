@@ -24,17 +24,14 @@ const Login = () => {
                 },
             });
 
-            console.log("Login exitoso", res.data); // 👈 revisa esto en la consola del navegador
-
-            login(res.data.access_token); // 👈 asegúrate de que existe esta propiedad
+            console.log("Login exitoso", res.data);
+            login(res.data.access_token);
             navigate("/dashboard");
         } catch (err) {
             console.error("Error real:", err);
             setError("Credenciales inválidas");
         }
     };
-
-
 
     return (
         <div style={{ maxWidth: 400, margin: "0 auto" }}>
@@ -59,6 +56,16 @@ const Login = () => {
                 />
                 <button type="submit">Entrar</button>
             </form>
+
+            <p style={{ textAlign: "center", marginTop: 20 }}>
+                ¿No tienes cuenta?{" "}
+                <span
+                    onClick={() => navigate("/register")}
+                    style={{ color: "#007bff", cursor: "pointer", textDecoration: "underline" }}
+                >
+                    Regístrate aquí
+                </span>
+            </p>
         </div>
     );
 };
