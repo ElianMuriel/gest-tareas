@@ -4,6 +4,7 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import { useAuth } from "./auth/AuthContext";
 import Kanban from "./pages/Kanban";
+import Register from "./pages/Register";
 
 function App() {
   const { user } = useAuth();
@@ -12,6 +13,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Login />} />
+        <Route path="/register" element={<Register />} />
         <Route
           path="/dashboard"
           element={user ? <Dashboard /> : <p>🔒 No autorizado</p>}
