@@ -1,4 +1,3 @@
-# app/routes/priority_routes.py
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from app.schemas import PriorityCreate, PriorityResponse

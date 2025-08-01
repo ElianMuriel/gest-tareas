@@ -1,4 +1,3 @@
-// src/api/tasks.ts
 import API from "./axios";
 
 export const getTasks = async (token: string) => {

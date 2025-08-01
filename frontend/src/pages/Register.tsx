@@ -1,4 +1,3 @@
-// src/pages/Register.tsx
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../api/axios";
@@ -20,7 +19,7 @@ const Register = () => {
             });
 
             console.log("Registro exitoso", res.data);
-            navigate("/"); // o "/login" si tienes esa ruta
+            navigate("/");
         } catch (err: any) {
             console.error("Error al registrar:", err);
             setError("No se pudo registrar. Verifica los datos.");

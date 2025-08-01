@@ -1,8 +1,7 @@
-// src/api/axios.ts
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "http://localhost:8000", // cambia cuando esté en producción
+  baseURL: "http://localhost:8000",
 });
 
 API.interceptors.request.use((config) => {

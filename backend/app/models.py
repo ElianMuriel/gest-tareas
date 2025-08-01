@@ -31,7 +31,7 @@ class Priority(Base):
     
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, nullable=False)
-    level = Column(Integer, nullable=False)  # 1-5
+    level = Column(Integer, nullable=False)
     color = Column(String, nullable=True)
     description = Column(Text, nullable=True)
 

@@ -4,7 +4,7 @@ from datetime import datetime
 from enum import Enum
 
 
-# ========== User Schemas ==========
+# ========== Schemas para Usuarios ==========
 class UserBase(BaseModel):
     username: str
     email: EmailStr
@@ -23,7 +23,7 @@ class UserResponse(UserBase):
         from_attributes = True
 
 
-# ========== Priority Schemas ==========
+# ========== Schemas para Prioridades ==========
 class PriorityBase(BaseModel):
     name: str
     level: int
@@ -42,7 +42,7 @@ class PriorityResponse(PriorityBase):
         from_attributes = True
 
 
-# ========== Task Schemas ==========
+# ========== Schemas para Tareas ==========
 class StatusEnum(str, Enum):
     pendiente = "pendiente"
     progreso = "progreso"

@@ -1,4 +1,3 @@
-// src/pages/TaskList.tsx
 import { useEffect, useState } from "react";
 import API from "../api/axios";
 import TaskFormModal from "../components/TaskFormModal";
@@ -65,8 +64,8 @@ const TaskList = () => {
         API.get("/users", { headers: { Authorization: `Bearer ${token}` } }),
         API.get("/priorities", { headers: { Authorization: `Bearer ${token}` } }),
         ]);
-        console.log("Usuarios cargados:", userRes.data); // ✅ Agrega esto
-        console.log("Prioridades cargadas:", priorityRes.data); // ✅ Y esto también
+        console.log("Usuarios cargados:", userRes.data);
+        console.log("Prioridades cargadas:", priorityRes.data);
         setUsers(userRes.data);
         setPriorities(priorityRes.data);
     } catch (err) {

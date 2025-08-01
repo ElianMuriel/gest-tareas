@@ -1,4 +1,3 @@
-// src/pages/Dashboard.tsx
 import Kanban from "./Kanban";
 import { Link } from "react-router-dom";
 
