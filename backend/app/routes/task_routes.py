@@ -1,17 +1,38 @@
 from dataclasses import field
-from fastapi import APIRouter, Depends, HTTPException
-from sqlalchemy.orm import Session
+from fastapi import APIRouter, Depends, HTTPException, Query
+from sqlalchemy.orm import Session, joinedload
 from app.auth import get_db, get_current_user
 from app.models import Task, User
-from app.schemas import TaskCreate, TaskUpdate, TaskResponse
-from typing import List
+from app.schemas import TaskCreate, TaskUpdate, TaskResponse, TaskOut
+from typing import List, Optional
 
 router = APIRouter()
 
 
-@router.get("/", response_model=List[TaskResponse])
-def get_tasks(db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
-    return db.query(Task).all()
+@router.get("/", response_model=List[TaskOut])
+def get_tasks(
+    db: Session = Depends(get_db),
+    current_user=Depends(get_current_user),
+    title: Optional[str] = Query(None),
+    status: Optional[str] = Query(None),
+    priority_id: Optional[int] = Query(None),
+    assigned_to: Optional[int] = Query(None),
+):
+    query = db.query(Task).options(
+        joinedload(Task.assignee), 
+        joinedload(Task.priority)
+    )
+
+    if title:
+        query = query.filter(Task.title.ilike(f"%{title}%"))
+    if status:
+        query = query.filter(Task.status == status)
+    if priority_id:
+        query = query.filter(Task.priority_id == priority_id)
+    if assigned_to:
+        query = query.filter(Task.assigned_to == assigned_to)
+
+    return query.all()
 
 
 @router.post("/", response_model=TaskResponse)

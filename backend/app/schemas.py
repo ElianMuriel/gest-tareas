@@ -20,7 +20,7 @@ class UserResponse(UserBase):
     created_at: datetime
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 # ========== Priority Schemas ==========
@@ -39,7 +39,7 @@ class PriorityResponse(PriorityBase):
     id: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 # ========== Task Schemas ==========
@@ -80,14 +80,18 @@ class TaskResponse(TaskBase):
     id: int
     created_by: int
     created_at: datetime
+    priority: Optional[PriorityResponse]
+    assignee: Optional[UserResponse]
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class TaskOut(TaskBase):
     id: int
     created_by: int
     created_at: datetime
+    assignee: Optional[UserResponse] = None
+    priority: Optional[PriorityResponse] = None
 
     class Config:
-        from_attributes = True  # Pydantic v2
+        from_attributes = True
