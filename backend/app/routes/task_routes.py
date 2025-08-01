@@ -1,3 +1,4 @@
+from dataclasses import field
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.auth import get_db, get_current_user
@@ -40,11 +41,11 @@ def get_task(task_id: int, db: Session = Depends(get_db), current_user: User = D
     return task
 
 
-@router.put("/{task_id}", response_model=TaskResponse)
+@router.patch("/{task_id}", response_model=TaskResponse)
 def update_task(task_id: int, task_data: TaskUpdate, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
     task = db.query(Task).filter(Task.id == task_id).first()
     if not task:
-        raise HTTPException(status_code=404, detail="Tarea no encontrada")
+        raise HTTPException(status_code=404, detail="Task not found")
     
     for key, value in task_data.dict(exclude_unset=True).items():
         setattr(task, key, value)

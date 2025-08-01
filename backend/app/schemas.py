@@ -1,6 +1,7 @@
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, ConfigDict
 from typing import Optional
 from datetime import datetime
+from enum import Enum
 
 
 # ========== User Schemas ==========
@@ -42,12 +43,17 @@ class PriorityResponse(PriorityBase):
 
 
 # ========== Task Schemas ==========
+class StatusEnum(str, Enum):
+    pendiente = "pendiente"
+    progreso = "progreso"
+    completado = "completado"
+
 class TaskBase(BaseModel):
     title: str
     description: Optional[str] = None
     assigned_to: Optional[int] = None
     priority_id: Optional[int] = None
-    status: Optional[str] = "Pendiente"
+    status: StatusEnum = StatusEnum.pendiente
     due_date: Optional[datetime] = None
     estimated_hours: Optional[int] = None
     completion_percentage: Optional[int] = 0
@@ -57,8 +63,17 @@ class TaskCreate(TaskBase):
     pass
 
 
-class TaskUpdate(TaskBase):
-    pass
+class TaskUpdate(BaseModel):
+    model_config = ConfigDict(extra='forbid', arbitrary_types_allowed=True)
+
+    title: str | None = None
+    description: str | None = None
+    assigned_to: int | None = None
+    priority_id: int | None = None
+    status: StatusEnum | None = None
+    due_date: datetime | None = None
+    estimated_hours: int | None = None
+    completion_percentage: int | None = None
 
 
 class TaskResponse(TaskBase):
@@ -68,3 +83,11 @@ class TaskResponse(TaskBase):
 
     class Config:
         orm_mode = True
+
+class TaskOut(TaskBase):
+    id: int
+    created_by: int
+    created_at: datetime
+
+    class Config:
+        from_attributes = True  # Pydantic v2

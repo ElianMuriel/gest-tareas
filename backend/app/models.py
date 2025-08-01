@@ -8,6 +8,11 @@ class RoleEnum(str, enum.Enum):
     user = "user"
     admin = "admin"
 
+class StatusEnum(str, enum.Enum):
+    pendiente = "pendiente"
+    progreso = "progreso"
+    completado = "completado"
+
 class User(Base):
     __tablename__ = "users"
     
@@ -41,7 +46,7 @@ class Task(Base):
     assigned_to = Column(Integer, ForeignKey("users.id"))
     created_by = Column(Integer, ForeignKey("users.id"))
     priority_id = Column(Integer, ForeignKey("priorities.id"))
-    status = Column(String, default="Pendiente")
+    status = Column(Enum(StatusEnum, native_enum=False), default=StatusEnum.pendiente)
     due_date = Column(DateTime)
     estimated_hours = Column(Integer)
     completion_percentage = Column(Integer, default=0)
