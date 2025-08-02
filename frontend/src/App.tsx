@@ -5,6 +5,8 @@ import { useAuth } from "./auth/AuthContext";
 import Kanban from "./pages/Kanban";
 import Register from "./pages/Register";
 import TaskList from "./pages/TaskList";
+import PriorityAdmin from "./pages/PriorityAdmin";
+import PrivateRoute from "./utils/PrivateRoute";
 
 function App() {
   const { user } = useAuth();
@@ -22,6 +24,14 @@ function App() {
         <Route
           path="/kanban"
           element={user ? <Kanban /> : <p>🔒 No autorizado</p>}
+        />
+        <Route
+          path="/prioridades"
+          element={
+            <PrivateRoute>
+              <PriorityAdmin />
+            </PrivateRoute>
+          }
         />
       </Routes>
     </BrowserRouter>
