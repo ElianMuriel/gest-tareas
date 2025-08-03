@@ -4,6 +4,10 @@ Este proyecto es una aplicación web fullstack para gestionar tareas, desarrolla
 
 ---
 
+Documentacion swagger: http://127.0.0.1:8000/docs#/
+
+---
+
 ## Tecnologías utilizadas
 
 ### Backend – FastAPI
@@ -107,6 +111,8 @@ Rutas útiles
 Backend (Swagger): http://localhost:8000/docs
 
 Frontend: http://localhost:5173
+
+---
 
 Autor: 
 Elian Muriel
